@@ -1,0 +1,114 @@
+﻿<Window x:Class="Hypsipetes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Hypsipetes"
+        Title="Hypsipetes" Height="350" Width="525" MinHeight="350" MinWidth="525"
+        Topmost="{Binding IsChecked, ElementName=displayFront}" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Grid>
+        <Menu>
+            <MenuItem Header="ファイル(_F)" >
+                <MenuItem x:Name="changeTitle" Header="タイトルの変更" Click="changeTitle_Click"/>
+                <MenuItem x:Name="changeCheckbox" Header="常に前向きに生きる" IsCheckable="True" Click="changeCheckbox_Click"/>
+                <Separator/>
+                <MenuItem x:Name="exit" Header="終了" Click="exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="ヘルプ(_H)">
+                <MenuItem x:Name="about" Header="About" Click="about_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,30" Background="{x:Null}">
+            <TabItem x:Name="cyclicGenerator" Header="サイクリック">
+                <Grid>
+                    <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,185,0" TextWrapping="NoWrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
+                             HorizontalScrollBarVisibility="Auto" FontFamily="MS Gothic">
+                        <TextBox.Text>
+                            <Binding Path="Cyclic.TargetText" UpdateSourceTrigger="PropertyChanged"/>
+                        </TextBox.Text>
+                    </TextBox>
+                    <GroupBox Header="生成設定" HorizontalAlignment="Right" VerticalAlignment="Top" Width="180" Height="222">
+                        <Grid>
+                            <Label Content="開始インデックス" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="38,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+                                <TextBox.Text>
+                                    <Binding Path="Cyclic.StartIndex" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <local:IntegerValidationRule IsArrowNegative="True" IsArrowZero="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Label Content="終了インデックス" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="22" Margin="38,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+                                <TextBox.Text>
+                                    <Binding Path="Cyclic.StopIndex" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <local:IntegerValidationRule IsArrowNegative="True" IsArrowZero="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Label Content="刻み幅" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="38,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+                                <TextBox.Text>
+                                    <Binding Path="Cyclic.Step" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <local:IntegerValidationRule IsArrowNegative="False" IsArrowZero="False"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button x:Name="generateCyclic" Content="生成" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top" Width="75" Click="generateCyclic_Click"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="フィックス">
+                <Grid>
+                    <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,185,0" TextWrapping="NoWrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
+                             HorizontalScrollBarVisibility="Auto" FontFamily="MS Gothic">
+                        <TextBox.Text>
+                            <Binding Path="Fix.TargetText" UpdateSourceTrigger="PropertyChanged"/>
+                        </TextBox.Text>
+                    </TextBox>
+                    <GroupBox Header="生成設定" HorizontalAlignment="Right" VerticalAlignment="Top" Height="222" Width="180">
+                        <Grid>
+                            <Label Content="プレフィックス" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="38,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+                                <TextBox.Text>
+                                    <Binding Path="Fix.Prefix" UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <Label Content="サフィックス" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="38,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+                                <TextBox.Text>
+                                    <Binding Path="Fix.Suffix" UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button x:Name="generateFix" Content="生成" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top" Width="75" Click="generateFix_Click"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="メモ">
+                <Grid>
+                    <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch" Margin="0,0,0,24" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" FontFamily="MS Gothic" >
+                        <TextBox.Text>
+                            <Binding Path="Holder.Text" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                        </TextBox.Text>
+                    </TextBox>
+                    <Button x:Name="generateFromMarkdown" Content="生成" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Click="generateFromMarkdown_Click"/>
+                    <Button x:Name="openHtml" Content="開く" HorizontalAlignment="Right" Margin="0,0,80,0" VerticalAlignment="Bottom" Width="75" Click="openHtml_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="ログ">
+                <Grid>
+                    <TextBox x:Name="log" HorizontalAlignment="Stretch" TextWrapping="NoWrap" VerticalAlignment="Stretch" Margin="0,0,0,0" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
+                             HorizontalScrollBarVisibility="Auto" IsReadOnly="True" FontFamily="MS Gothic"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <CheckBox x:Name="displayFront" Content="常に手前に表示" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" IsChecked="True"/>
+    </Grid>
+</Window>
