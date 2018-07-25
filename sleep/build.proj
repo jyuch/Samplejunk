@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <ProjectName>Sleep</ProjectName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <CSFile Include="src\**\*.cs" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <DistDir>dist</DistDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Resources Include="src/Help.txt" />
+        <Resources Include="src/moo.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="System.dll"/>
+        <Reference Include="System.Data.dll"/>
+        <Reference Include="System.Drawing.dll"/>
+        <Reference Include="System.Windows.Forms.dll"/>
+        <Reference Include="System.XML.dll"/>
+    </ItemGroup>
+
+    <Target Name="init" >
+        <MakeDir Directories="$(DistDir)" />
+    </Target>
+
+    <Target Name="clean" >
+        <RemoveDir Directories="$(DistDir)" />
+    </Target>
+
+    <Target Name="build" >
+        <CSC
+            Sources="@(CSFile)"
+            References="@(Reference)"
+            OutputAssembly="$(DistDir)/$(ProjectName).exe"
+            TargetType="exe"
+            Resources="@(Resources)" />
+    </Target>
+</Project>
