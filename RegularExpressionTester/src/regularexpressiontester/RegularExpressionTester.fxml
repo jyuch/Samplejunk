@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="regularexpressiontester.RegularExpressionTesterController">
+   <children>
+      <VBox prefHeight="390.0" prefWidth="263.0">
+         <children>
+            <Label text="regular expression" />
+            <TextField fx:id="regularExpression">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Label fx:id="errorRegularExpression" text="Specify the field Regular Expression" textFill="RED" visible="false" />
+            <Label text="target text">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextArea fx:id="targetString" prefHeight="114.0" prefWidth="243.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextArea>
+            <Label fx:id="errorTargetString" text="Specify the field Target String" textFill="RED" visible="false" />
+            <Label text="replacement(optional)">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="replacement">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="280.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleTestButtonAction" prefHeight="26.0" prefWidth="105.0" text="Test" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox prefHeight="291.0" prefWidth="243.0">
+               <children>
+                  <CheckBox fx:id="canonEq" mnemonicParsing="false" text="Enables canonical equivalence" wrapText="true">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="caseInsensitive" mnemonicParsing="false" text="Enables case-insensitive matching" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="comments" mnemonicParsing="false" text="Permits whitespace and comments in pattern" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="dotall" mnemonicParsing="false" text="Enables dotall mode" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="literal" mnemonicParsing="false" text="Enables literal parsing of the pattern" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="multiline" mnemonicParsing="false" text="Enables multiline mode" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="unicodeCase" mnemonicParsing="false" text="Enables Unicode-aware case folding" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="unicodeCharacterClass" mnemonicParsing="false" text="Enables the Unicode version of Predefined character classes and POSIX character classes" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="unixLines" mnemonicParsing="false" text="Enables Unix lines mode" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox prefHeight="520.0" prefWidth="411.0">
+         <children>
+            <HBox prefHeight="45.0" prefWidth="424.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <VBox prefHeight="45.0" prefWidth="140.0">
+                     <children>
+                        <Label text="Matcher#groupCount()" />
+                        <Label fx:id="groupCount">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="45.0" prefWidth="125.0">
+                     <children>
+                        <Label text="Matcher#match()" />
+                        <Label fx:id="isMatch" prefHeight="16.0" prefWidth="100.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="45.0" prefWidth="125.0">
+                     <children>
+                        <Label text="Matcher#find()" />
+                        <Label fx:id="isFind">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label text="Matcher#replaceFirst()">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="replaceFirst">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Matcher#replaceAll()">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="replaceAll">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Matcher#find()">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <TreeView fx:id="matcherFind" prefHeight="334.0" prefWidth="391.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TreeView>
+            <HBox prefHeight="45.0" prefWidth="391.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <Label fx:id="errorMessage" textFill="RED" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>
