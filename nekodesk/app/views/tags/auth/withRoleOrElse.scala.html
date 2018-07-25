@@ -1,0 +1,10 @@
+@import models.User
+@import play.twirl.api.Html
+@import _root_.utils.auth.WithRole
+
+@(anyOf: String*)(body: Html)(orElseBody: Html)(implicit loggedUser: User)
+@if(WithRole.isAuthorized(loggedUser, anyOf: _*)) {
+    @body
+} else {
+    @orElseBody
+}

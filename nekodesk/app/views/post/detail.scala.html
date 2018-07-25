@@ -1,0 +1,23 @@
+@import models.Post
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import views.html.main
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+
+@(user: models.User, post: Post)(implicit request: RequestHeader, messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+
+@main("Post", Some(user)) {
+    <fieldset class="col-md-10 col-md-offset-1">
+        <legend>@messages("post.detail")</legend>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">@post.title</div>
+            <div class="panel-body">
+            @for(line <- post.content.split("\n")) { <p>@line</p>}
+            </div>
+        </div>
+
+        <a href="@controllers.routes.PostController.list">Back</a>
+    </fieldset>
+}

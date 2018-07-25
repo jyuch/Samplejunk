@@ -1,0 +1,26 @@
+@import models.Post
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import views.html.main
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+
+@(user: models.User, posts: Seq[Post])(implicit request: RequestHeader, messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+
+@main("Post", Some(user)) {
+    <fieldset class="col-md-10 col-md-offset-1">
+        <legend>@messages("post.list")</legend>
+        <a href="@controllers.routes.PostController.createNew">Create</a>
+
+        @for(a <- posts) {
+            <div class="panel panel-default">
+                <div class="panel-heading">@{a.title}<div class="pull-right">
+                    <a href="@controllers.routes.PostController.delete(a.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                </div></div>
+                <div class="panel-body"><p>@{a.content slice (0, 100) }</p>
+                    <p><a href="@controllers.routes.PostController.detail(a.id)">detail</a></p></div>
+                </div>
+            </div>
+        }
+    </fieldset>
+}

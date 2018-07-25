@@ -1,0 +1,34 @@
+@import views.html.b3.vertical.fieldConstructor
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import views.html.main
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+@import play.api.data.Form
+@import play.api.data.FormError
+@import views.html.b3
+@import views.html.helper
+
+@(user: models.User, form: Form[forms.NewPostForm.NewPost])(implicit request: RequestHeader, messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+
+@main("New post", Some(user)) {
+    <legend>@messages("post.new")</legend>
+
+    @* Global errors are not tied to any particular form field *@
+    @if(form.hasGlobalErrors) {
+        @form.globalErrors.map { error: FormError =>
+            <div>
+                @error.key: @error.message
+            </div>
+        }
+    }
+
+    @b3.form(controllers.routes.PostController.create) {
+        @helper.CSRF.formField
+        @b3.text(form("title"), '_label -> "Title", 'placeholder -> "Title")
+        @b3.textarea(form("content"), '_label -> "Content", 'placeholder -> "Content", 'rows -> "10")
+        @b3.submit('class -> "btn btn-default") { Create article }
+
+    }
+    <a href="@controllers.routes.PostController.list">Back</a>
+}
