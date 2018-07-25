@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <ProductBy>Jyuch</ProductBy>
+        <ProductName>CmdMarshaller</ProductName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <LibFile Include="src\lib\**\*.cs" />
+        <TestFile Include="src\test\**\*.cs" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <DistDir>dist</DistDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <LibRef Include="System.dll"/>
+        <TestRef Include="System.dll"/>
+        <TestRef Include="$(DistDir)/$(ProductBy).$(ProductName).dll" />
+    </ItemGroup>
+
+    <Target Name="init" >
+        <MakeDir Directories="$(DistDir)" />
+    </Target>
+
+    <Target Name="clean" >
+        <RemoveDir Directories="$(DistDir)" />
+    </Target>
+
+    <Target Name="build" >
+        <CSC
+            Sources="@(LibFile)"
+            References="@(LibRef)"
+            OutputAssembly="$(DistDir)/$(ProductBy).$(ProductName).dll"
+            TargetType="library" />
+        <CSC
+            Sources="@(TestFile)"
+            References="@(TestRef)"
+            OutputAssembly="$(DistDir)/Test.exe"
+            TargetType="exe"
+            MainEntryPoint="Jyuch.CuiSupport.Test.CmdMarshallerTest" />
+    </Target>
+
+<!--
+    <Target Name="run" >
+        <Exec Command="$(DistDir)\Test.exe" />
+    </Target>
+-->
+</Project>
