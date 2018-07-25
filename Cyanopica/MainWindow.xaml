@@ -1,0 +1,114 @@
+﻿<Window x:Class="Cyanopica.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="600" Width="800"
+        MinHeight="600" MinWidth="800"
+        SizeToContent="Height"
+        Title="Cyanopica">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- target field -->
+            <Grid Grid.Column="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="入力テキスト" HorizontalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Margin="5,5,5,5" TextWrapping="NoWrap" Text="{Binding SourceText}" 
+                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" AcceptsReturn="True"
+                             FontFamily="Arial" FontSize="14"/>
+                </Grid>
+            </Grid>
+
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
+            <!-- distination field -->
+            <Grid Grid.Column="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="出力テキスト" HorizontalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Margin="5,5,5,5" TextWrapping="NoWrap" Text="{Binding DestText}" IsReadOnly="True" 
+                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" FontFamily="Arial" FontSize="14"/>
+                </Grid>
+            </Grid>
+
+            <!-- control panel -->
+            <Grid Grid.Column="3">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="エンコーダ" Margin="5,5,5,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <ComboBox Grid.Row="0" HorizontalAlignment="Stretch" Margin="10,5,10,5" VerticalAlignment="Top"
+                                          ItemsSource="{Binding UsableEncoding}" DisplayMemberPath="DisplayName"
+                                          SelectedValuePath="CodePage" SelectedValue="{Binding EncodingCodePage}"/>
+                                <RadioButton Grid.Row="1" Content="最適フォールバック"  Height="19" Margin="10,5,0,0" IsChecked="{Binding IsEncodingBestFitFallback}"/>
+                                <RadioButton x:Name="inputFallBack" Grid.Row="2" Content="置換フォールバック"  Height="19" Margin="10,0,0,0"/>
+                                <Label Grid.Row="3" Content="置換先文字" Margin="10,0,0,0" Height="25"/>
+                                <TextBox Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="20,0,10,5" TextWrapping="NoWrap"
+                                         IsEnabled = "{Binding IsChecked, ElementName=inputFallBack}" Text="{Binding EncoderReplacementText}"/>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="1" Header="デコーダ" Margin="5,5,5,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <ComboBox Grid.Row="0" HorizontalAlignment="Stretch" Margin="10,5,10,5" VerticalAlignment="Top"
+                                          ItemsSource="{Binding UsableEncoding}" DisplayMemberPath="DisplayName"
+                                          SelectedValuePath="CodePage" SelectedValue="{Binding DecodingCodePage}"/>
+                                <RadioButton Grid.Row="1" Content="最適フォールバック"  Height="19" Margin="10,5,0,0" IsChecked="{Binding IsDecodingBestFitFallback}"/>
+                                <RadioButton x:Name="outputFallBack" Grid.Row="2" Content="置換フォールバック"  Height="19" Margin="10,0,0,0"/>
+                                <Label Grid.Row="3" Content="置換先文字" Margin="10,0,0,0" Height="25"/>
+                                <TextBox Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="20,0,10,5" TextWrapping="NoWrap"
+                                         IsEnabled = "{Binding IsChecked, ElementName=outputFallBack}" Text="{Binding DecoderReplacementText}"/>
+                            </Grid>
+                        </GroupBox>
+                        <Button Grid.Row="2" HorizontalAlignment="Left" Margin="10,10,0,10" Width="100" Content="変換" Command="{Binding Conversion}"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+
+        <Grid Grid.Row="2">
+            <TextBox Margin="5,5,5,5" TextWrapping="NoWrap" Text="{Binding HexDump}" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
+                     FontFamily="Courier New" FontSize="14"/>
+        </Grid>
+    </Grid>
+</Window>
